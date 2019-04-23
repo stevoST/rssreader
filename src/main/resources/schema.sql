@@ -1,9 +1,0 @@
-DROP TABLE IF EXISTS articles;
-
-CREATE TABLE articles (
-id BIGINT NOT NULL PRIMARY KEY,
-title VARCHAR(40),
-description VARCHAR(100),
-link VARCHAR(40),
-pubdate VARCHAR(40),
-);
