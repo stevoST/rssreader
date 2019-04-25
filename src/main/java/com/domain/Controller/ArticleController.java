@@ -1,6 +1,7 @@
 package com.domain.Controller;
 
 import com.domain.Entity.Article;
+import com.domain.Service.ArticleRepository;
 import com.domain.Service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;

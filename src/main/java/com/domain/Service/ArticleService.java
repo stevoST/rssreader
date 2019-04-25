@@ -5,6 +5,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -13,6 +14,10 @@ import java.util.List;
 
 @Service
 public class ArticleService {
+
+
+    @Autowired
+    private ArticleRepository articleRepository;
 
     public List<Article> getArticles() throws IOException {
         List<Article> articleList = new ArrayList();
@@ -23,9 +28,10 @@ public class ArticleService {
         for (Element element : items) {
             Article article = new Article();
             article.setTitle(element.getElementsByTag("title").text());
-            article.setLink(items.first().getElementsByTag("link").text());
-            article.setDescription(items.first().getElementsByTag("description").text());
-            article.setPubDate(items.first().getElementsByTag("pubDate").text());
+            article.setLink(element.getElementsByTag("link").text());
+//            article.setDescription(element.getElementsByTag("description").text());
+            article.setPubDate(element.getElementsByTag("pubDate").text());
+            articleRepository.save(article);
             articleList.add(article);
         }
         return articleList;
