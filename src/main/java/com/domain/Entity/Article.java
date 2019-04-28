@@ -1,18 +1,18 @@
 package com.domain.Entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
+@Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"link"})})
 public class Article {
 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer id;
 
     private String title;
+
+    @Column(name = "link")
     private String link;
     private String description;
     private String pubDate;
