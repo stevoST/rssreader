@@ -31,7 +31,12 @@ public class ArticleService {
             article.setLink(element.getElementsByTag("link").text());
 //            article.setDescription(element.getElementsByTag("description").text());
             article.setPubDate(element.getElementsByTag("pubDate").text());
-            articleRepository.save(article);
+            try {
+                articleRepository.save(article);
+            }
+            catch (Exception e){
+                System.out.println("meh");
+            }
             articleList.add(article);
         }
         return articleList;

@@ -3,16 +3,16 @@ package com.domain.Entity;
 import javax.persistence.*;
 
 @Entity
-@Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"link"})})
+//@Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"link"})})
 public class Article {
 
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
     private String title;
 
-    @Column(name = "link")
+//    @Column(name = "link")
     private String link;
     private String description;
     private String pubDate;
