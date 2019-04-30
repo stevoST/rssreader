@@ -9,8 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 @Service
 public class ArticleService {
@@ -19,8 +17,7 @@ public class ArticleService {
     @Autowired
     private ArticleRepository articleRepository;
 
-    public List<Article> getArticles() throws IOException {
-        List<Article> articleList = new ArrayList();
+    public void getArticles() throws IOException {
 
         Document doc = Jsoup.connect("http://www.dsl.sk/export/rss_articles.php").get();
         Elements items = doc.getElementsByTag("item");
@@ -29,16 +26,17 @@ public class ArticleService {
             Article article = new Article();
             article.setTitle(element.getElementsByTag("title").text());
             article.setLink(element.getElementsByTag("link").text());
-//            article.setDescription(element.getElementsByTag("description").text());
+            article.setDescription(element.getElementsByTag("description").text());
             article.setPubDate(element.getElementsByTag("pubDate").text());
             try {
                 articleRepository.save(article);
+            } catch (Exception e) {
             }
-            catch (Exception e){
-                System.out.println("meh");
-            }
-            articleList.add(article);
         }
-        return articleList;
+    }
+
+    public Iterable<Article> readArticlesFromDB() {
+        return articleRepository.findAll();
+
     }
 }
