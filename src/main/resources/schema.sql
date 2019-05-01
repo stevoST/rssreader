@@ -1,6 +1,4 @@
-drop table if exists article;
-
-create table article(
+create table if not exists article(
 id bigint not null primary key,
 description text,
 link varchar (256) unique,
