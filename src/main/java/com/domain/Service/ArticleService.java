@@ -19,7 +19,7 @@ public class ArticleService {
 
     public void getArticles() throws IOException {
 
-        Document doc = Jsoup.connect("https://games.tiscali.cz/rss2.xml").get();
+        Document doc = Jsoup.connect("http://www.dsl.sk/export/rss_articles.php").get();
         Elements items = doc.getElementsByTag("item");
 
         for (Element element : items) {
