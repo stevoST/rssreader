@@ -1,6 +1,7 @@
 package com.domain.Service;
 
 import com.domain.Entity.Article;
+import com.domain.Entity.Configuration;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -16,6 +17,9 @@ public class ArticleService {
 
     @Autowired
     private ArticleRepository articleRepository;
+
+    @Autowired
+    private ConfigurationRepository configurationRepository;
 
     public void getArticles() throws IOException {
 
@@ -37,6 +41,11 @@ public class ArticleService {
 
     public Iterable<Article> readArticlesFromDB() {
         return articleRepository.findAll();
+
+    }
+
+    public Iterable<Configuration> readConfigurationFromDB() {
+        return configurationRepository.findAll();
 
     }
 }
