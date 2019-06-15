@@ -6,6 +6,8 @@ import com.domain.Service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @RestController
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RequestMapping("/")
@@ -41,6 +43,11 @@ public class ArticleController {
 
 //        return  configurationList;
         return articleService.readConfigurationFromDB();
+    }
+
+    @RequestMapping(value = "/configuration/{id}", method = RequestMethod.GET)
+    public Optional<Configuration> getConfigurationById(@PathVariable("id") int id){
+        return articleService.getConfigurationById(id);
     }
 
 }

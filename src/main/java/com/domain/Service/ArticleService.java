@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.Optional;
 
 @Service
 public class ArticleService {
@@ -47,5 +48,9 @@ public class ArticleService {
     public Iterable<Configuration> readConfigurationFromDB() {
         return configurationRepository.findAll();
 
+    }
+
+    public Optional<Configuration> getConfigurationById(int id) {
+        return configurationRepository.findById(id);
     }
 }
