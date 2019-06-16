@@ -1,16 +1,16 @@
 package com.domain.Controller;
 
 import com.domain.Entity.Article;
-import com.domain.Entity.Configuration;
 import com.domain.Service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.Optional;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @CrossOrigin(origins = "*", allowedHeaders = "*")
-@RequestMapping("/")
+@RequestMapping("/articles")
 public class ArticleController {
 
     @Autowired
@@ -27,27 +27,6 @@ public class ArticleController {
 //        return articleRepository.findById(5);
 //    }
 
-    @GetMapping(path = "/configuration")
-    public Iterable<Configuration> getConfiguration() {
-//        Configuration configuration = new Configuration();
-//        Configuration configuration1 = new Configuration();
-//        List<Configuration> configurationList = new ArrayList<Configuration>();
-//
-//        configuration.setFeedName("dsl.sk");
-//        configuration.setFeedLink("http://www.dsl.sk/export/rss_articles.php");
-//
-//        configuration1.setFeedName("zive.cz");
-//        configuration1.setFeedLink("https://www.zive.cz/rss/sc-47/");
-//        configurationList.add(configuration);
-//        configurationList.add(configuration1);
 
-//        return  configurationList;
-        return articleService.readConfigurationFromDB();
-    }
-
-    @RequestMapping(value = "/configuration/{id}", method = RequestMethod.GET)
-    public Optional<Configuration> getConfigurationById(@PathVariable("id") int id){
-        return articleService.getConfigurationById(id);
-    }
 
 }

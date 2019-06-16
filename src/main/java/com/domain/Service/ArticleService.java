@@ -1,7 +1,6 @@
 package com.domain.Service;
 
 import com.domain.Entity.Article;
-import com.domain.Entity.Configuration;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -10,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.util.Optional;
 
 @Service
 public class ArticleService {
@@ -18,9 +16,6 @@ public class ArticleService {
 
     @Autowired
     private ArticleRepository articleRepository;
-
-    @Autowired
-    private ConfigurationRepository configurationRepository;
 
     public void getArticles() throws IOException {
 
@@ -43,14 +38,5 @@ public class ArticleService {
     public Iterable<Article> readArticlesFromDB() {
         return articleRepository.findAll();
 
-    }
-
-    public Iterable<Configuration> readConfigurationFromDB() {
-        return configurationRepository.findAll();
-
-    }
-
-    public Optional<Configuration> getConfigurationById(int id) {
-        return configurationRepository.findById(id);
     }
 }
