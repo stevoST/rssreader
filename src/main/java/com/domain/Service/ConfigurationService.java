@@ -24,4 +24,8 @@ public class ConfigurationService {
     public void addConfigurationToDB(Configuration configuration) {
         configurationRepository.save(configuration);
     }
+
+    public void deleteConfigurationById(int id) {
+        configurationRepository.deleteById(id);
+    }
 }

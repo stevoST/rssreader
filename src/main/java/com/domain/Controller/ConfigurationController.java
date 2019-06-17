@@ -43,4 +43,9 @@ public class ConfigurationController {
     public void addConfiguration(@RequestBody Configuration configuration){
         configurationService.addConfigurationToDB(configuration);
     }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    public void deleteConfigurationById(@PathVariable("id") int id){
+        configurationService.deleteConfigurationById(id);
+    }
 }
