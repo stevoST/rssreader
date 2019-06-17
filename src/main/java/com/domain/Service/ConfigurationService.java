@@ -14,7 +14,6 @@ public class ConfigurationService {
 
     public Iterable<Configuration> readConfigurationFromDB() {
         return configurationRepository.findAll();
-
     }
 
     public Optional<Configuration> getConfigurationById(int id) {

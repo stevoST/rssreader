@@ -17,9 +17,9 @@ public class ArticleService {
     @Autowired
     private ArticleRepository articleRepository;
 
-    public void getArticles() throws IOException {
+    public void getArticles(String feedLink) throws IOException {
 
-        Document doc = Jsoup.connect("http://www.dsl.sk/export/rss_articles.php").get();
+        Document doc = Jsoup.connect(feedLink).get();
         Elements items = doc.getElementsByTag("item");
 
         for (Element element : items) {
