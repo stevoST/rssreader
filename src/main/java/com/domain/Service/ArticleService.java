@@ -39,9 +39,9 @@ public class ArticleService {
                 article.setLink(element.getElementsByTag("link").text());
                 article.setDescription(element.getElementsByTag("description").text());
                 article.setPubDate(element.getElementsByTag("pubDate").text());
-                try {
+
+                if(!articleRepository.existsByLink(article.getLink())){
                     articleRepository.save(article);
-                } catch (Exception e) {
                 }
             }
 
