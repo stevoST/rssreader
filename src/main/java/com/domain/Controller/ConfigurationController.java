@@ -18,19 +18,6 @@ public class ConfigurationController {
 
     @RequestMapping(method = RequestMethod.GET)
     public Iterable<Configuration> getConfiguration() {
-//        Configuration configuration = new Configuration();
-//        Configuration configuration1 = new Configuration();
-//        List<Configuration> configurationList = new ArrayList<Configuration>();
-//
-//        configuration.setFeedName("dsl.sk");
-//        configuration.setFeedLink("http://www.dsl.sk/export/rss_articles.php");
-//
-//        configuration1.setFeedName("zive.cz");
-//        configuration1.setFeedLink("https://www.zive.cz/rss/sc-47/");
-//        configurationList.add(configuration);
-//        configurationList.add(configuration1);
-
-//        return  configurationList;
         return configurationService.readConfigurationFromDB();
     }
 
@@ -40,8 +27,9 @@ public class ConfigurationController {
     }
 
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void addConfiguration(@RequestBody Configuration configuration){
+    public Configuration addConfiguration(@RequestBody Configuration configuration){
         configurationService.addConfigurationToDB(configuration);
+        return configuration;
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
