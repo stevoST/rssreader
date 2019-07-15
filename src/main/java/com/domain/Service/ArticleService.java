@@ -9,10 +9,6 @@ import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
 @Service
 public class ArticleService {
 
@@ -23,29 +19,33 @@ public class ArticleService {
     @Autowired
     private ConfigurationService configurationService;
 
-    public void getArticles() throws IOException {
+    public void getArticles() {
 
         Iterable<Configuration> configurations = configurationService.readConfigurationFromDB();
-        List<String> feedLinksList = new ArrayList<>();
-        configurations.forEach(configuration -> feedLinksList.add(configuration.getFeedLink()));
+        configurations.forEach(
+                configuration -> {
 
-        for(String feedlink : feedLinksList) {
-            Document doc = Jsoup.connect(feedlink).get();
-            Elements items = doc.getElementsByTag("item");
+                    try {
+                        Document doc = Jsoup.connect(configuration.getFeedLink()).get();
+                        Elements items = doc.getElementsByTag("item");
 
-            for (Element element : items) {
-                Article article = new Article();
-                article.setTitle(element.getElementsByTag("title").text());
-                article.setLink(element.getElementsByTag("link").text());
-                article.setDescription(element.getElementsByTag("description").text());
-                article.setPubDate(element.getElementsByTag("pubDate").text());
+                        for (Element element : items) {
+                            Article article = new Article();
+                            article.setTitle(element.getElementsByTag("title").text());
+                            article.setLink(element.getElementsByTag("link").text());
+                            article.setDescription(element.getElementsByTag("description").text());
+                            article.setPubDate(element.getElementsByTag("pubDate").text());
 
-                if(!articleRepository.existsByLink(article.getLink())){
-                    articleRepository.save(article);
+                            if (!articleRepository.existsByLink(article.getLink())) {
+                                articleRepository.save(article);
+                            }
+                        }
+                    } catch (Exception e) {
+                        System.out.println("Problem with Feed Link: " + e);
+                    }
                 }
-            }
 
-        }
+        );
     }
 
     public Iterable<Article> readArticlesFromDB() {
