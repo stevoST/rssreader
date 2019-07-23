@@ -9,6 +9,10 @@ import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 @Service
 public class ArticleService {
 
@@ -30,11 +34,17 @@ public class ArticleService {
                         Elements items = doc.getElementsByTag("item");
 
                         for (Element element : items) {
+
                             Article article = new Article();
                             article.setTitle(element.getElementsByTag("title").text());
                             article.setLink(element.getElementsByTag("link").text());
                             article.setDescription(element.getElementsByTag("description").text());
                             article.setPubDate(element.getElementsByTag("pubDate").text());
+                            DateFormat format = new SimpleDateFormat("EE, d MMM YYYY HH:mm:ss z");
+                            //Tue, 23 Jul 2019 16:33:00 GMT
+                            String stringDate = element.getElementsByTag("pubDate").text();
+                            Date date = format.parse(stringDate);
+                            article.setTest(date);
 
                             if (!articleRepository.existsByLink(article.getLink())) {
                                 articleRepository.save(article);

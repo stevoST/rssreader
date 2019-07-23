@@ -2,7 +2,11 @@ package com.domain.Entity;
 
 import lombok.Data;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import java.util.Date;
 
 @Entity
 @Data
@@ -17,4 +21,5 @@ public class Article {
     private String link;
     private String description;
     private String pubDate;
+    private Date test;
 }
