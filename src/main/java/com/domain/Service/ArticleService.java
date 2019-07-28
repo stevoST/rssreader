@@ -7,6 +7,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.text.DateFormat;
@@ -40,7 +41,8 @@ public class ArticleService {
                             article.setLink(element.getElementsByTag("link").text());
                             article.setDescription(element.getElementsByTag("description").text());
                             article.setPubDate(element.getElementsByTag("pubDate").text());
-                            DateFormat format = new SimpleDateFormat("EE, d MMM YYYY HH:mm:ss z");
+                            DateFormat format = new SimpleDateFormat("EE, d MMM yyyy HH:mm:ss z");
+                            System.out.println(configuration.getFeedName() + ": " + configuration.getFeedItem());
                             //Tue, 23 Jul 2019 16:33:00 GMT
                             String stringDate = element.getElementsByTag("pubDate").text();
                             Date date = format.parse(stringDate);
@@ -59,7 +61,7 @@ public class ArticleService {
     }
 
     public Iterable<Article> readArticlesFromDB() {
-        return articleRepository.findAll();
-
+        return articleRepository.findAll(new Sort(Sort.Direction.DESC, "test" ));
     }
+
 }
