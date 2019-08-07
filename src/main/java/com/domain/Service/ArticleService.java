@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 @Service
 public class ArticleService {
@@ -41,7 +42,7 @@ public class ArticleService {
                             article.setLink(element.getElementsByTag("link").text());
                             article.setDescription(element.getElementsByTag("description").text());
                             article.setPubDate(element.getElementsByTag("pubDate").text());
-                            DateFormat format = new SimpleDateFormat("EE, d MMM yyyy HH:mm:ss z");
+                            DateFormat format = new SimpleDateFormat("EE, d MMM yyyy HH:mm:ss z", Locale.ENGLISH);
                             System.out.println(configuration.getFeedName() + ": " + configuration.getFeedItem());
                             //Tue, 23 Jul 2019 16:33:00 GMT
                             String stringDate = element.getElementsByTag("pubDate").text();
