@@ -11,5 +11,5 @@ create table if not exists configuration (
 id bigint not null AUTO_INCREMENT PRIMARY KEY,
 feed_name varchar (256) not null,
 feed_link varchar (256) not null unique,
-feed_item varchar (256) not null
+feed_date_format varchar (256) not null
 );

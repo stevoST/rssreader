@@ -42,9 +42,9 @@ public class ArticleService {
                             article.setLink(element.getElementsByTag("link").text());
                             article.setDescription(element.getElementsByTag("description").text());
                             article.setPubDate(element.getElementsByTag("pubDate").text());
-                            DateFormat format = new SimpleDateFormat("EE, d MMM yyyy HH:mm:ss z", Locale.ENGLISH);
-                            System.out.println(configuration.getFeedName() + ": " + configuration.getFeedItem());
-                            //Tue, 23 Jul 2019 16:33:00 GMT
+                            DateFormat format = new SimpleDateFormat(configuration.getFeedDateFormat(), Locale.ENGLISH);
+//                            System.out.println(configuration.getFeedName() + ": " + configuration.getFeedDateFormat());
+//                            Tue, 23 Jul 2019 16:33:00 GMT, "EE, dM yyyy HH:mm:ss z"
                             String stringDate = element.getElementsByTag("pubDate").text();
                             Date date = format.parse(stringDate);
                             article.setTest(date);

@@ -16,5 +16,5 @@ public class Configuration {
 
     private String feedName;
     private String feedLink;
-    private String feedItem;
+    private String feedDateFormat;
 }
