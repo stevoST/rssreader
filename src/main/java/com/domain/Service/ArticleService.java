@@ -44,7 +44,7 @@ public class ArticleService {
                             article.setPubDate(element.getElementsByTag("pubDate").text());
                             DateFormat format = new SimpleDateFormat(configuration.getFeedDateFormat(), Locale.ENGLISH);
 //                            System.out.println(configuration.getFeedName() + ": " + configuration.getFeedDateFormat());
-//                            Tue, 23 Jul 2019 16:33:00 GMT, "EE, dM yyyy HH:mm:ss z"
+//                            Tue, 23 Jul 2019 16:33:00 GMT, "EEE, dd MMM yyyy HH:mm:ss z"
                             String stringDate = element.getElementsByTag("pubDate").text();
                             Date date = format.parse(stringDate);
                             article.setTest(date);
