@@ -1,5 +1,6 @@
 package com.domain.Controller;
 
+import com.domain.Entity.Article;
 import com.domain.Entity.Configuration;
 import com.domain.Service.ConfigurationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,5 +36,10 @@ public class ConfigurationController {
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public void deleteConfigurationById(@PathVariable("id") int id){
         configurationService.deleteConfigurationById(id);
+    }
+
+    @RequestMapping(value ="/{id}/{text}", method = RequestMethod.GET)
+    public Iterable<Article> getArticlesByFeedName(@PathVariable("id") int id, @PathVariable("text") String feedName){
+        return configurationService.validateConfigurationByName(feedName, id);
     }
 }

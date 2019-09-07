@@ -21,5 +21,6 @@ public class Article {
     private String link;
     private String description;
     private String pubDate;
-    private Date test;
+    private Date pubDateFormatted;
+    private String feedName;
 }

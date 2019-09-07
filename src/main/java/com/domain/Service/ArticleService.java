@@ -47,7 +47,8 @@ public class ArticleService {
 //                            Tue, 23 Jul 2019 16:33:00 GMT, "EE, dM yyyy HH:mm:ss z"
                             String stringDate = element.getElementsByTag("pubDate").text();
                             Date date = format.parse(stringDate);
-                            article.setTest(date);
+                            article.setPubDateFormatted(date);
+                            article.setFeedName(configuration.getFeedName());
 
                             if (!articleRepository.existsByLink(article.getLink())) {
                                 articleRepository.save(article);
@@ -62,7 +63,12 @@ public class ArticleService {
     }
 
     public Iterable<Article> readArticlesFromDB() {
-        return articleRepository.findAll(new Sort(Sort.Direction.DESC, "test" ));
+        return articleRepository.findAll(new Sort(Sort.Direction.DESC, "pubDateFormatted" ));
     }
+
+    public Iterable<Article> readArticlesByFeedNameFromDB(String feedName) {
+        return articleRepository.findAllArticlesByFeedName(feedName);
+    }
+
 
 }

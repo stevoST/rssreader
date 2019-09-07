@@ -4,7 +4,8 @@ description text,
 link varchar (256) not null unique,
 pub_date varchar (256) not null,
 title varchar (256) not null,
-test varchar (256) not null default ''
+pub_date_formatted varchar (256) not null default '',
+feed_name varchar (256) not null
 );
 
 create table if not exists configuration (
