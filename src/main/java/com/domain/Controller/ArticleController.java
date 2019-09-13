@@ -17,10 +17,14 @@ public class ArticleController {
     private ArticleService articleService;
 
     @RequestMapping(method = RequestMethod.GET)
-    public Iterable<Article> getArticles() {
+    public Iterable<Article> getArticlesFromDb() {
        return articleService.readArticlesFromDB();
     }
 
+    @RequestMapping(value = "/fetcharticles", method = RequestMethod.GET)
+    public void getArticles(){
+        articleService.fetchArticles();
+    }
 //    @GetMapping(path = "/read")
 //    public @ResponseBody
 //    Optional<Article> getAllArticlesFromDb(){

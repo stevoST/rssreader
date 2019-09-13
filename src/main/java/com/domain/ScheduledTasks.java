@@ -21,6 +21,6 @@ public class ScheduledTasks {
     @Scheduled(fixedRate = 300000)
     public void test() throws IOException {
 //        log.info("The time is now {}", dateFormat.format(new Date()));
-        articleService.getArticles();
+        articleService.fetchArticles();
     }
 }
