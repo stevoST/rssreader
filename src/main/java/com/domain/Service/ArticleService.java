@@ -25,7 +25,7 @@ public class ArticleService {
     @Autowired
     private ConfigurationService configurationService;
 
-    public void getArticles() {
+    public void fetchArticles() {
 
         Iterable<Configuration> configurations = configurationService.readConfigurationFromDB();
         configurations.forEach(
