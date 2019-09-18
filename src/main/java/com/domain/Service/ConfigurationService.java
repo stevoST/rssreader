@@ -2,6 +2,7 @@ package com.domain.Service;
 
 import com.domain.Entity.Article;
 import com.domain.Entity.Configuration;
+import com.domain.Repository.ConfigurationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -1,4 +1,4 @@
-package com.domain.Service;
+package com.domain.Repository;
 
 import com.domain.Entity.Configuration;
 import org.springframework.data.repository.CrudRepository;

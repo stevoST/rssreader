@@ -3,6 +3,8 @@ package com.domain.Controller;
 import com.domain.Entity.Article;
 import com.domain.Service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -16,6 +18,9 @@ public class ArticleController {
     @Autowired
     private ArticleService articleService;
 
+    @Autowired
+    private JavaMailSender javaMailSender;
+
     @RequestMapping(method = RequestMethod.GET)
     public Iterable<Article> getArticlesFromDb() {
        return articleService.readArticlesFromDB();
@@ -25,12 +30,17 @@ public class ArticleController {
     public void getArticles(){
         articleService.fetchArticles();
     }
-//    @GetMapping(path = "/read")
-//    public @ResponseBody
-//    Optional<Article> getAllArticlesFromDb(){
-//        return articleRepository.findById(5);
-//    }
 
+    @RequestMapping(value = "/test")
+    public void sendEmail() {
 
+        SimpleMailMessage msg = new SimpleMailMessage();
+        msg.setTo("stefan.starosta@gmail.com");
 
+        msg.setSubject("mooncake");
+        msg.setText("Chookity \n Pok");
+
+        javaMailSender.send(msg);
+
+    }
 }

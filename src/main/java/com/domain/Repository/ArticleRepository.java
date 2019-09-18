@@ -1,4 +1,4 @@
-package com.domain.Service;
+package com.domain.Repository;
 
 import com.domain.Entity.Article;
 import org.springframework.data.jpa.repository.JpaRepository;

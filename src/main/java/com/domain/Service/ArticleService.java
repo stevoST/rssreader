@@ -2,6 +2,7 @@ package com.domain.Service;
 
 import com.domain.Entity.Article;
 import com.domain.Entity.Configuration;
+import com.domain.Repository.ArticleRepository;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
