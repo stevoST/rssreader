@@ -26,6 +26,9 @@ public class ArticleService {
     @Autowired
     private ConfigurationService configurationService;
 
+    @Autowired
+    private MailNotification mailNotification;
+
     public void fetchArticles() {
 
         Iterable<Configuration> configurations = configurationService.readConfigurationFromDB();
@@ -40,6 +43,9 @@ public class ArticleService {
 
                             Article article = new Article();
                             article.setTitle(element.getElementsByTag("title").text());
+                            if (article.getTitle().contains("Huawei")){
+                                mailNotification.sendMail();
+                            }
                             article.setLink(element.getElementsByTag("link").text());
                             article.setDescription(element.getElementsByTag("description").text());
                             article.setPubDate(element.getElementsByTag("pubDate").text());
