@@ -41,23 +41,26 @@ public class ArticleService {
 
                         for (Element element : items) {
 
-                            Article article = new Article();
-                            article.setTitle(element.getElementsByTag("title").text());
-                            if (article.getTitle().contains("Huawei")){
-                                mailNotification.sendMail();
-                            }
-                            article.setLink(element.getElementsByTag("link").text());
-                            article.setDescription(element.getElementsByTag("description").text());
-                            article.setPubDate(element.getElementsByTag("pubDate").text());
-                            DateFormat format = new SimpleDateFormat(configuration.getFeedDateFormat(), Locale.ENGLISH);
+                            String ArticleLink = element.getElementsByTag("link").text();
+                            Boolean isArticleAlreadyInDB = !articleRepository.existsByLink(ArticleLink);
+
+                            if (isArticleAlreadyInDB) {
+                                Article article = new Article();
+                                article.setTitle(element.getElementsByTag("title").text());
+                                if (article.getTitle().contains("Huawei")) {
+                                    mailNotification.sendMail();
+                                }
+                                article.setLink(ArticleLink);
+                                article.setDescription(element.getElementsByTag("description").text());
+                                article.setPubDate(element.getElementsByTag("pubDate").text());
+                                DateFormat format = new SimpleDateFormat(configuration.getFeedDateFormat(), Locale.ENGLISH);
 //                            System.out.println(configuration.getFeedName() + ": " + configuration.getFeedDateFormat());
 //                            Tue, 23 Jul 2019 16:33:00 GMT, "EEE, dd MMM yyyy HH:mm:ss z"
-                            String stringDate = element.getElementsByTag("pubDate").text();
-                            Date date = format.parse(stringDate);
-                            article.setPubDateFormatted(date);
-                            article.setFeedName(configuration.getFeedName());
+                                String stringDate = element.getElementsByTag("pubDate").text();
+                                Date date = format.parse(stringDate);
+                                article.setPubDateFormatted(date);
+                                article.setFeedName(configuration.getFeedName());
 
-                            if (!articleRepository.existsByLink(article.getLink())) {
                                 articleRepository.save(article);
                             }
                         }
@@ -70,7 +73,7 @@ public class ArticleService {
     }
 
     public Iterable<Article> readArticlesFromDB() {
-        return articleRepository.findAll(new Sort(Sort.Direction.DESC, "pubDateFormatted" ));
+        return articleRepository.findAll(new Sort(Sort.Direction.DESC, "pubDateFormatted"));
     }
 
     public Iterable<Article> readArticlesByFeedNameFromDB(String feedName) {
