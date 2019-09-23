@@ -9,6 +9,8 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import java.text.DateFormat;
@@ -19,6 +21,8 @@ import java.util.Locale;
 @Service
 public class ArticleService {
 
+    @Autowired
+    private JavaMailSender javaMailSender;
 
     @Autowired
     private ArticleRepository articleRepository;
@@ -48,7 +52,7 @@ public class ArticleService {
                                 Article article = new Article();
                                 article.setTitle(element.getElementsByTag("title").text());
                                 if (article.getTitle().contains("Huawei")) {
-                                    mailNotification.sendMail();
+                                    sendMail();
                                 }
                                 article.setLink(ArticleLink);
                                 article.setDescription(element.getElementsByTag("description").text());
@@ -70,6 +74,16 @@ public class ArticleService {
                 }
 
         );
+    }
+
+    public void sendMail() {
+        SimpleMailMessage msg = new SimpleMailMessage();
+        msg.setTo("stefan.starosta@gmail.com");
+
+        msg.setSubject("mooncake");
+        msg.setText("Chookity \n Pok");
+
+        javaMailSender.send(msg);
     }
 
     public Iterable<Article> readArticlesFromDB() {
