@@ -30,9 +30,6 @@ public class ArticleService {
     @Autowired
     private ConfigurationService configurationService;
 
-    @Autowired
-    private MailNotification mailNotification;
-
     public void fetchArticles() {
 
         Iterable<Configuration> configurations = configurationService.readConfigurationFromDB();
