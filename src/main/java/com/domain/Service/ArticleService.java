@@ -14,6 +14,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -42,25 +43,11 @@ public class ArticleService {
 
                         for (Element element : items) {
 
-                            String ArticleLink = element.getElementsByTag("link").text();
-                            Boolean isArticleAlreadyInDB = !articleRepository.existsByLink(ArticleLink);
+                            String articleLink = element.getElementsByTag("link").text();
+                            Boolean isArticleAlreadyInDB = !articleRepository.existsByLink(articleLink);
 
                             if (isArticleAlreadyInDB) {
-                                Article article = new Article();
-                                article.setTitle(element.getElementsByTag("title").text());
-                                if (article.getTitle().contains("Huawei")) {
-                                    sendMail();
-                                }
-                                article.setLink(ArticleLink);
-                                article.setDescription(element.getElementsByTag("description").text());
-                                article.setPubDate(element.getElementsByTag("pubDate").text());
-                                DateFormat format = new SimpleDateFormat(configuration.getFeedDateFormat(), Locale.ENGLISH);
-//                            System.out.println(configuration.getFeedName() + ": " + configuration.getFeedDateFormat());
-//                            Tue, 23 Jul 2019 16:33:00 GMT, "EEE, dd MMM yyyy HH:mm:ss z"
-                                String stringDate = element.getElementsByTag("pubDate").text();
-                                Date date = format.parse(stringDate);
-                                article.setPubDateFormatted(date);
-                                article.setFeedName(configuration.getFeedName());
+                                Article article = getSingleArticle(configuration, element, articleLink);
 
                                 articleRepository.save(article);
                             }
@@ -71,6 +58,25 @@ public class ArticleService {
                 }
 
         );
+    }
+
+    private Article getSingleArticle(Configuration configuration, Element element, String articleLink) throws ParseException {
+        Article article = new Article();
+        article.setTitle(element.getElementsByTag("title").text());
+        if (article.getTitle().contains("Huawei")) {
+            sendMail();
+        }
+        article.setLink(articleLink);
+        article.setDescription(element.getElementsByTag("description").text());
+        article.setPubDate(element.getElementsByTag("pubDate").text());
+        DateFormat format = new SimpleDateFormat(configuration.getFeedDateFormat(), Locale.ENGLISH);
+//                            System.out.println(configuration.getFeedName() + ": " + configuration.getFeedDateFormat());
+//                            Tue, 23 Jul 2019 16:33:00 GMT, "EEE, dd MMM yyyy HH:mm:ss z"
+        String stringDate = element.getElementsByTag("pubDate").text();
+        Date date = format.parse(stringDate);
+        article.setPubDateFormatted(date);
+        article.setFeedName(configuration.getFeedName());
+        return article;
     }
 
     public void sendMail() {
