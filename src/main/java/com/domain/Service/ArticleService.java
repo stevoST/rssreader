@@ -67,7 +67,7 @@ public class ArticleService {
     private Article getSingleArticle(Configuration configuration, Element element, String articleLink) throws ParseException {
         Article article = new Article();
         article.setTitle(element.getElementsByTag("title").text());
-        if (article.getTitle().contains("Musk")) {
+        if (article.getTitle().contains(settingsRepository.findTrackedWords())) {
             sendMail();
         }
         article.setLink(articleLink);

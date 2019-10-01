@@ -8,4 +8,7 @@ public interface SettingsRepository extends JpaRepository<Settings,Integer> {
 
     @Query(value = "SELECT value FROM Settings u WHERE u.property='email'")
     String findEmail();
+
+    @Query(value = "SELECT value FROM Settings u WHERE u.property='tracked_words'")
+    String findTrackedWords();
 }
