@@ -3,6 +3,7 @@ package com.domain.Service;
 import com.domain.Entity.Article;
 import com.domain.Entity.Configuration;
 import com.domain.Repository.ArticleRepository;
+import com.domain.Repository.SettingsRepository;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -27,6 +28,9 @@ public class ArticleService {
 
     @Autowired
     private ArticleRepository articleRepository;
+
+    @Autowired
+    private SettingsRepository settingsRepository;
 
     @Autowired
     private ConfigurationService configurationService;
@@ -63,7 +67,7 @@ public class ArticleService {
     private Article getSingleArticle(Configuration configuration, Element element, String articleLink) throws ParseException {
         Article article = new Article();
         article.setTitle(element.getElementsByTag("title").text());
-        if (article.getTitle().contains("Huawei")) {
+        if (article.getTitle().contains("Musk")) {
             sendMail();
         }
         article.setLink(articleLink);
@@ -81,7 +85,7 @@ public class ArticleService {
 
     public void sendMail() {
         SimpleMailMessage msg = new SimpleMailMessage();
-        msg.setTo("stefan.starosta@gmail.com");
+        msg.setTo(settingsRepository.findEmail());
 
         msg.setSubject("mooncake");
         msg.setText("Chookity \n Pok");
