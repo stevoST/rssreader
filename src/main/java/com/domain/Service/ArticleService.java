@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.Locale;
 
@@ -67,9 +68,10 @@ public class ArticleService {
     private Article getSingleArticle(Configuration configuration, Element element, String articleLink) throws ParseException {
         Article article = new Article();
         article.setTitle(element.getElementsByTag("title").text());
-        if (article.getTitle().contains(findTrackedWords())) {
-            sendMail();
-        }
+        System.out.println(article.getTitle() + " " + stringContainsItemFromList(article.getTitle(),settingsRepository.findTrackedWords().split(";")));
+//        if (article.getTitle().contains(findTrackedWords())) {
+//            sendMail();
+//        }
         article.setLink(articleLink);
         article.setDescription(element.getElementsByTag("description").text());
         article.setPubDate(element.getElementsByTag("pubDate").text());
@@ -96,6 +98,10 @@ public class ArticleService {
     private String findTrackedWords(){
         String[] trackedWords = settingsRepository.findTrackedWords().split(";");
        return trackedWords[0];
+    }
+
+    public static boolean stringContainsItemFromList(String title, String[] trackedWords) {
+        return Arrays.stream(trackedWords).parallel().anyMatch(title::contains);
     }
 
     public Iterable<Article> readArticlesFromDB() {
