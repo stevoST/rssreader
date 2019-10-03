@@ -1,4 +1,4 @@
-create table if not exists article(
+create table article(
 id bigint not null AUTO_INCREMENT PRIMARY KEY,
 description text,
 link varchar (256) not null unique,
@@ -8,14 +8,14 @@ pub_date_formatted varchar (256) not null default '',
 feed_name varchar (256) not null
 );
 
-create table if not exists configuration (
+create table configuration (
 id bigint not null AUTO_INCREMENT PRIMARY KEY,
 feed_name varchar (256) not null,
 feed_link varchar (256) not null unique,
 feed_date_format varchar (256) not null
 );
 
-create table if not exists settings (
+create table settings (
 id bigint not null AUTO_INCREMENT PRIMARY KEY,
 property varchar (256) not null,
 value varchar (256) not null

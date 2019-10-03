@@ -67,7 +67,7 @@ public class ArticleService {
     private Article getSingleArticle(Configuration configuration, Element element, String articleLink) throws ParseException {
         Article article = new Article();
         article.setTitle(element.getElementsByTag("title").text());
-        if (article.getTitle().contains(settingsRepository.findTrackedWords())) {
+        if (article.getTitle().contains(findTrackedWords())) {
             sendMail();
         }
         article.setLink(articleLink);
@@ -83,7 +83,7 @@ public class ArticleService {
         return article;
     }
 
-    public void sendMail() {
+    private void sendMail() {
         SimpleMailMessage msg = new SimpleMailMessage();
         msg.setTo(settingsRepository.findEmail());
 
@@ -91,6 +91,11 @@ public class ArticleService {
         msg.setText("Chookity \n Pok");
 
         javaMailSender.send(msg);
+    }
+
+    private String findTrackedWords(){
+        String[] trackedWords = settingsRepository.findTrackedWords().split(";");
+       return trackedWords[0];
     }
 
     public Iterable<Article> readArticlesFromDB() {
