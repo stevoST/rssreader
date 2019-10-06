@@ -68,7 +68,7 @@ public class ArticleService {
     private Article getSingleArticle(Configuration configuration, Element element, String articleLink) throws ParseException {
         Article article = new Article();
         article.setTitle(element.getElementsByTag("title").text());
-        System.out.println(article.getTitle() + " " + stringContainsItemFromList(article.getTitle(),settingsRepository.findTrackedWords().split(";")));
+        System.out.println(article.getTitle() + " " + stringContainsItemFromList(article.getTitle(), findTrackedWords()));
 //        if (article.getTitle().contains(findTrackedWords())) {
 //            sendMail();
 //        }
@@ -95,9 +95,8 @@ public class ArticleService {
         javaMailSender.send(msg);
     }
 
-    private String findTrackedWords(){
-        String[] trackedWords = settingsRepository.findTrackedWords().split(";");
-       return trackedWords[0];
+    private String[] findTrackedWords(){
+        return settingsRepository.findTrackedWords().split(";");
     }
 
     public static boolean stringContainsItemFromList(String title, String[] trackedWords) {
