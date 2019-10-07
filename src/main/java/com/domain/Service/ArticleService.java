@@ -20,6 +20,7 @@ import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.Locale;
+import java.util.regex.Pattern;
 
 @Service
 public class ArticleService {
@@ -100,7 +101,11 @@ public class ArticleService {
     }
 
     public static boolean stringContainsItemFromList(String title, String[] trackedWords) {
-        return Arrays.stream(trackedWords).parallel().anyMatch(title::contains);
+        return Arrays.stream(trackedWords).parallel().anyMatch(
+                p -> Pattern.compile(Pattern.quote(p), Pattern.CASE_INSENSITIVE)
+                        .matcher(title)
+                        .find()
+        );
     }
 
     public Iterable<Article> readArticlesFromDB() {
