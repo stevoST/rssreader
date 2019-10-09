@@ -33,11 +33,10 @@ public class ConfigurationService {
         configurationRepository.deleteById(id);
     }
 
-    public Iterable<Article> validateConfigurationByName(String feedName, int id){
-        if (configurationRepository.existsByFeedNameAndId(feedName, id)){
+    public Iterable<Article> validateConfigurationByName(String feedName, int id) {
+        if (configurationRepository.existsByFeedNameAndId(feedName, id)) {
             return articleService.readArticlesByFeedNameFromDB(feedName);
-        }
-        else {
+        } else {
             return null;
         }
     }
