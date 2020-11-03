@@ -17,7 +17,7 @@ public class AuthController {
     @Autowired
     private JwtUtil jwtUtil;
 
-    @PostMapping(value = "/signin")
+    @PostMapping(value = "/login")
     public String signIn(@RequestBody LoginDetails loginDetails){
         return jwtUtil.generateToken(loginDetails);
     }
