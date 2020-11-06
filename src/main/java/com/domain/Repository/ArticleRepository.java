@@ -11,4 +11,5 @@ public interface ArticleRepository extends JpaRepository<Article,Integer> {
 
     @Query(value = "SELECT * FROM Article u WHERE u.feed_name = ?1 ORDER BY u.pub_date_formatted DESC", nativeQuery = true)
     List<Article> findAllArticlesByFeedName(String feedName);
+
 }
