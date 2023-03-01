@@ -50,7 +50,7 @@ public class ArticleService {
                         for (Element element : items) {
 
                             String articleLink = element.getElementsByTag("link").text();
-                            Boolean isArticleAlreadyInDB = !articleRepository.existsByLink(articleLink);
+                            boolean isArticleAlreadyInDB = !articleRepository.existsByLink(articleLink);
 
                             if (isArticleAlreadyInDB) {
                                 Article article = getSingleArticle(configuration, element, articleLink);
@@ -96,7 +96,7 @@ public class ArticleService {
         javaMailSender.send(msg);
     }
 
-    private String[] findTrackedWords(){
+    private String[] findTrackedWords() {
         return settingsRepository.findTrackedWords().split(";");
     }
 
@@ -109,7 +109,7 @@ public class ArticleService {
     }
 
     public Iterable<Article> readArticlesFromDB() {
-        return articleRepository.findAll(new Sort(Sort.Direction.DESC, "pubDateFormatted"));
+        return articleRepository.findAll(Sort.by(Sort.Direction.DESC, "pubDateFormatted"));
     }
 
     public Iterable<Article> readArticlesByFeedNameFromDB(String feedName) {
