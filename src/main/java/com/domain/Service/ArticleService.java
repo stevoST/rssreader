@@ -116,5 +116,4 @@ public class ArticleService {
         return articleRepository.findAllArticlesByFeedName(feedName);
     }
 
-
 }

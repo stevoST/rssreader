@@ -3,10 +3,7 @@ package com.domain.Controller;
 import com.domain.Entity.Article;
 import com.domain.Service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -26,4 +23,8 @@ public class ArticleController {
         articleService.fetchArticles();
     }
 
+    @RequestMapping(value ="/{feedName}", method = RequestMethod.GET)
+    public Iterable<Article> getArticlesByFeedName(@PathVariable("feedName") String feedName){
+        return articleService.readArticlesByFeedNameFromDB(feedName);
+    }
 }
